@@ -1,10 +1,11 @@
 import jenkins
 import os
 
-def get_builds(server):
+def get_builds(server, color):
     jobs = server.get_all_jobs()
     for j in jobs:
-        print(j['fullname'])
+        if j['color'] == color:
+            print(j['name'])
 
 def get_job_info(server, job):
     return server.get_job_info(job)
@@ -21,4 +22,4 @@ if 'JENKINS_SHORT_PASSWORD' not in os.environ:
 user = os.environ['JENKINS_SHORT_USER']
 password = os.environ['JENKINS_SHORT_PASSWORD']
 server = jenkins.Jenkins('http://localhost:8080', user, password)
-get_builds(server)
+get_builds(server, 'blue')
