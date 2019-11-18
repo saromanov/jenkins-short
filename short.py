@@ -5,6 +5,10 @@ def get_builds(server):
     jobs = server.get_all_jobs()
     for j in jobs:
         print(j['fullname'])
+
+def get_job_info(server, job):
+    return server.get_job_info(job)
+
 def create_job(server, path):
     server.get_job_config(path)
     server.build_job(path)
