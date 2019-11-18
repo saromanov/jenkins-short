@@ -1,6 +1,10 @@
 import jenkins
 import os
 
+def get_builds(server):
+    jobs = server.get_all_jobs()
+    for j in jobs:
+        print(j['fullname'])
 def create_job(server, path):
     server.get_job_config(path)
     server.build_job(path)
@@ -8,9 +12,9 @@ def create_job(server, path):
 
 if 'JENKINS_SHORT_USER' not in os.environ:
     raise Exception('user is not defined')
-if 'JENKINS_SHORT_USER' not in os.environ:
+if 'JENKINS_SHORT_PASSWORD' not in os.environ:
     raise Exception('password is not defined')
 user = os.environ['JENKINS_SHORT_USER']
 password = os.environ['JENKINS_SHORT_PASSWORD']
 server = jenkins.Jenkins('http://localhost:8080', user, password)
-print (server.jobs_count())
+get_builds(server)
